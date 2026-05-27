@@ -1,0 +1,1 @@
+Mit diesem Script kann eine Bestenloiste erstellt werden, welche Anträge (bzw TOPs mit gleichem Antragstitel) schon in den meisten Sitzungen waren. Geschekćkt wird zwischen anzugebenden Anfangs- und Endsitzungen, nur Sitzungen auf Schabernack können geprüft werden.
