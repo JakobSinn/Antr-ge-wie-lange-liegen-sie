@@ -4,9 +4,9 @@ import pandas as pd
 import re
 
 urlbase = "https://schabernack.stura.uni-heidelberg.de/sitzungsverwaltung/Sitzungsunterlagen-digital/Protokoll/{}-Studierendenrat"
-anfang = 200
+anfang = 197
 ende = 225
-sonsersitzungscheck = []
+sondersitzungscheck = []
 df = pd.DataFrame(columns=["sitzung", "titel"])
 
 
@@ -40,14 +40,14 @@ for sitzung in range(anfang, ende + 1):
 
     print(f"Sitzung {sitzung}: {len(rows)} Tagesordnungspunkte gefunden.")
     if len(rows) < 5:
-        sonsersitzungscheck.append(sitzung)
+        sondersitzungscheck.append(sitzung)
 
     df_current = pd.DataFrame({"sitzung": [sitzung] * len(rows), "titel": rows})
     if not df_current.empty:
         df = pd.concat([df, df_current], ignore_index=True)
 
 urlbasesonder = urlbase + "-Sondersitzung"
-for sitzung in sonsersitzungscheck:
+for sitzung in sondersitzungscheck:
     rows = topsnehmen(urlbasesonder, sitzung)
 
     print(f"Sondersitzung {sitzung}: {len(rows)} Tagesordnungspunkte gefunden.")
@@ -57,7 +57,4 @@ df.to_csv("antraege.csv", index=False, encoding="utf-8")
 
 print(df.head(10))
 
-result = df.groupby("titel")["sitzung"].nunique()
-
-print(result.sort_values(ascending=False).head(20))
 # hier könnte man noch händisch filtern und eine nette grafik erstellen oder so
